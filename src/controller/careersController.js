@@ -57,4 +57,22 @@ const updateCareers = async (req, res) => {
     return res.status(500).send({ status: false, message: error.message });
   }
 };
-module.exports = { careers, getCareers, updateCareers };
+
+//======================================================================
+const individualEntry = async (req,res)=>{
+  try {
+    let id = req.params.Id
+    let data = await careersModel
+    .find({ isDeleted: false ,_id:id })
+   
+    
+  res.status(200).send({ status: true, data: data });
+  if (!data) {
+    return res.status(404).send({ status: false, message: "no data found" });
+  }
+
+  } catch (error) {
+    return res.status(500).send({ status: false, message: error.message });
+  }
+}
+module.exports = { careers, getCareers, updateCareers, individualEntry};
