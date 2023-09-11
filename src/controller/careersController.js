@@ -44,10 +44,10 @@ const updateCareers = async (req, res) => {
     let updateData = await careersModel.findOneAndUpdate({ _id: Id }, data, {
       new: true,
     });
-    if (!updateData) {
+    if (!updateData || updateData.isDeleted==true) {
       return res.status(404).send({
         status: false,
-        message: "no user found to update",
+        message: "no data found ",
       });
     }
     return res
